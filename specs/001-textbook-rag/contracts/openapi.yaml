@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Textbook RAG Chatbot API
+  description: RAG-powered chatbot API for Physical AI & Humanoid Robotics textbook
+  version: 1.0.0
+  contact:
+    name: API Support
+
+servers:
+  - url: https://api.textbook.example.com
+    description: Production
+  - url: http://localhost:8000
+    description: Development
+
+paths:
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Health check endpoint
+      description: Returns API health status and dependency connectivity
+      tags:
+        - System
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: API is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /chat:
+    post:
+      operationId: sendChatMessage
+      summary: Send a chat message
+      description: |
+        Send a user message and receive an AI response based on textbook content.
+        Responses include citations to source chapters/sections.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until rate limit resets
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service unavailable (LLM or vector DB down)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /chat/context:
+    post:
+      operationId: sendContextualMessage
+      summary: Send a message with selected text context
+      description: |
+        Send a user message with pre-selected text from the textbook.
+        Used by the "Select text → Ask AI" feature.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContextualChatRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: User's question or message
+          example: "What are the main components of ROS 2?"
+        session_id:
+          type: string
+          format: uuid
+          description: Optional session ID for conversation continuity
+          example: "550e8400-e29b-41d4-a716-446655440000"
+
+    ContextualChatRequest:
+      type: object
+      required:
+        - message
+        - selected_text
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: User's question about the selected text
+          example: "Can you explain this in simpler terms?"
+        selected_text:
+          type: string
+          minLength: 10
+          maxLength: 500
+          description: Text selected by user from textbook content
+          example: "ROS 2 nodes communicate via topics using a publish-subscribe pattern"
+        chapter_slug:
+          type: string
+          description: Chapter where text was selected (for context)
+          example: "ros2-fundamentals"
+        session_id:
+          type: string
+          format: uuid
+          description: Optional session ID for conversation continuity
+
+    ChatResponse:
+      type: object
+      required:
+        - message_id
+        - answer
+        - confidence
+        - sources
+      properties:
+        message_id:
+          type: string
+          format: uuid
+          description: Unique identifier for this response
+        session_id:
+          type: string
+          format: uuid
+          description: Session ID (new if not provided in request)
+        answer:
+          type: string
+          description: AI-generated answer based on textbook content
+          example: "ROS 2 has several main components including nodes, topics, services, and actions..."
+        confidence:
+          type: string
+          enum: [high, medium, low]
+          description: |
+            Confidence level based on retrieval similarity scores:
+            - high: score >= 0.7, strong match found
+            - medium: score 0.4-0.7, partial match (includes disclaimer)
+            - low: score < 0.4, topic may not be covered
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+          description: Citations to textbook sections used for the answer
+        disclaimer:
+          type: string
+          description: Optional disclaimer for medium/low confidence responses
+          example: "Based on limited context from the textbook..."
+
+    Source:
+      type: object
+      required:
+        - chapter_slug
+        - chapter_title
+        - excerpt
+        - score
+      properties:
+        chapter_slug:
+          type: string
+          description: URL-safe chapter identifier
+          example: "ros2-fundamentals"
+        chapter_title:
+          type: string
+          description: Human-readable chapter title
+          example: "ROS 2 Fundamentals"
+        section_id:
+          type: string
+          description: Section identifier (chapter_slug#heading_slug)
+          example: "ros2-fundamentals#nodes-and-topics"
+        section_title:
+          type: string
+          description: Section heading text
+          example: "Nodes and Topics"
+        excerpt:
+          type: string
+          maxLength: 200
+          description: Relevant excerpt from the source
+          example: "ROS 2 nodes are the fundamental building blocks..."
+        score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Semantic similarity score
+          example: 0.85
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+          description: Overall API health status
+        timestamp:
+          type: string
+          format: date-time
+          description: Health check timestamp
+        dependencies:
+          type: object
+          properties:
+            qdrant:
+              type: string
+              enum: [up, down]
+            groq:
+              type: string
+              enum: [up, down]
+            neon:
+              type: string
+              enum: [up, down]
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+          example: "Rate limit exceeded. Please try again later."
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+            - INVALID_REQUEST
+            - MESSAGE_TOO_LONG
+            - SELECTED_TEXT_TOO_LONG
+            - RATE_LIMIT_EXCEEDED
+            - SERVICE_UNAVAILABLE
+            - INTERNAL_ERROR
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Optional API key for higher rate limits (future use)
+
+tags:
+  - name: Chat
+    description: Chat and Q&A endpoints
+  - name: System
+    description: Health and status endpoints

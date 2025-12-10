@@ -1,0 +1,100 @@
+/**
+ * Physical AI Textbook - Custom CSS
+ * Clean, minimal styling per constitution
+ */
+
+/* Primary color palette - Professional blue */
+:root {
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode palette */
+[data-theme='dark'] {
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #93c5fd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Clean typography */
+.markdown h1 {
+  font-size: 2.25rem;
+}
+
+.markdown h2 {
+  font-size: 1.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  padding-bottom: 0.5rem;
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+}
+
+/* Code blocks */
+.markdown pre {
+  border-radius: 8px;
+}
+
+/* Tables */
+.markdown table {
+  display: table;
+  width: 100%;
+}
+
+.markdown th {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+/* Better list spacing */
+.markdown ul,
+.markdown ol {
+  margin-bottom: 1rem;
+}
+
+.markdown li {
+  margin-bottom: 0.5rem;
+}
+
+/* Clean links */
+.markdown a {
+  text-decoration: none;
+}
+
+.markdown a:hover {
+  text-decoration: underline;
+}
+
+/* Admonitions (notes, warnings) */
+.admonition {
+  border-radius: 8px;
+}
+
+/* Footer styling */
+.footer {
+  padding: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 996px) {
+  .markdown h1 {
+    font-size: 1.75rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.5rem;
+  }
+}
