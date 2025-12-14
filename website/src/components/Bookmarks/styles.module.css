@@ -1,0 +1,150 @@
+.bookmarkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+  border-radius: 4px;
+  color: var(--ifm-color-emphasis-600);
+  transition: color 0.2s ease, background-color 0.2s ease;
+  vertical-align: middle;
+}
+
+.bookmarkButton:hover {
+  color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+.bookmarkButton.bookmarked {
+  color: var(--ifm-color-primary);
+}
+
+.bookmarkButton.bookmarked:hover {
+  color: var(--ifm-color-primary-dark);
+}
+
+/* Bookmarks page styles */
+.bookmarksPage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.bookmarksHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.bookmarksTitle {
+  margin: 0;
+}
+
+.clearButton {
+  background: none;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ifm-color-emphasis-700);
+  transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+  border-color: var(--ifm-color-danger);
+  color: var(--ifm-color-danger);
+}
+
+.bookmarksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bookmarkItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+}
+
+.bookmarkItem:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bookmarkContent {
+  flex: 1;
+}
+
+.bookmarkLink {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.bookmarkLink:hover {
+  text-decoration: underline;
+}
+
+.bookmarkSection {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: 0.25rem;
+}
+
+.bookmarkDate {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-500);
+  margin-top: 0.25rem;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--ifm-color-emphasis-500);
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.removeButton:hover {
+  color: var(--ifm-color-danger);
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.emptyText {
+  margin-bottom: 1rem;
+}
+
+.startReadingLink {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.startReadingLink:hover {
+  text-decoration: underline;
+}

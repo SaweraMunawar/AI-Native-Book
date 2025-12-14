@@ -99,9 +99,9 @@ class Source(BaseModel):
     )
     score: float = Field(
         ...,
-        ge=0,
+        ge=-1,
         le=1,
-        description="Semantic similarity score"
+        description="Semantic similarity score (-1 to 1 for cosine similarity)"
     )
 
 

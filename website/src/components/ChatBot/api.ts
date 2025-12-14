@@ -2,7 +2,8 @@
  * API client for chat endpoints
  */
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+// Use a hardcoded URL for now - in production, configure via docusaurus.config.js customFields
+const API_URL = 'http://localhost:8000';
 
 export interface Source {
   chapter_slug: string;

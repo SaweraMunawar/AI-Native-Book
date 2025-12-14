@@ -7,7 +7,7 @@ surface: agent
 model: claude-opus-4-5-20251101
 feature: 001-textbook-rag
 branch: 001-textbook-rag
-user: iqra
+user: sawera
 command: /sp.implement
 labels: ["implementation", "rag", "docusaurus", "fastapi"]
 links:

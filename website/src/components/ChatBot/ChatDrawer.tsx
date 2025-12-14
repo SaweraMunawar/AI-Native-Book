@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, JSX } from 'react';
 import ChatMessage, { type Message } from './ChatMessage';
 import { sendMessage, sendContextualMessage, checkHealth, type ChatResponse } from './api';
 import styles from './styles.module.css';

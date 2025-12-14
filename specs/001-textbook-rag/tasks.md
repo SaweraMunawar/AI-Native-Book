@@ -87,7 +87,7 @@
 
 - [X] T026 [US2] Create backend/src/services/embeddings.py with sentence-transformers MiniLM-L6-v2 embedding function
 - [X] T027 [US2] Create backend/scripts/ingest.py to chunk markdown files (512 tokens, 50 overlap) and upload to Qdrant with chapter/section metadata
-- [ ] T028 [US2] Run ingest.py to populate Qdrant with all 6 chapter embeddings
+- [X] T028 [US2] Run ingest.py to populate Qdrant with all 6 chapter embeddings
 - [X] T029 [US2] Create backend/src/services/retrieval.py with Qdrant search function returning top-3 chunks with scores
 - [X] T030 [US2] Create backend/src/services/generation.py with Groq Llama 3 client and system prompt constraining to book content only
 - [X] T031 [US2] Implement confidence scoring in retrieval.py: high (>=0.7), medium (0.4-0.7), low (<0.4)
@@ -142,15 +142,15 @@
 
 ### Implementation for User Story 4
 
-- [ ] T051 [P] [US4] Create docs/i18n/ur/docusaurus-plugin-content-docs/current/ directory structure
-- [ ] T052 [P] [US4] Create Urdu translation of intro.md in i18n/ur/.../intro.md
-- [ ] T053 [P] [US4] Create Urdu translation of humanoid-basics.md
-- [ ] T054 [P] [US4] Create Urdu translation of ros2-fundamentals.md
-- [ ] T055 [P] [US4] Create Urdu translation of digital-twin.md
-- [ ] T056 [P] [US4] Create Urdu translation of vla-systems.md
-- [ ] T057 [P] [US4] Create Urdu translation of capstone.md
-- [ ] T058 [US4] Configure website/docusaurus.config.js i18n settings with defaultLocale: 'en', locales: ['en', 'ur']
-- [ ] T059 [US4] Add language switcher to navbar in docusaurus.config.js themeConfig
+- [X] T051 [P] [US4] Create docs/i18n/ur/docusaurus-plugin-content-docs/current/ directory structure
+- [X] T052 [P] [US4] Create Urdu translation of intro.md in i18n/ur/.../intro.md
+- [X] T053 [P] [US4] Create Urdu translation of humanoid-basics.md
+- [X] T054 [P] [US4] Create Urdu translation of ros2-fundamentals.md
+- [X] T055 [P] [US4] Create Urdu translation of digital-twin.md
+- [X] T056 [P] [US4] Create Urdu translation of vla-systems.md
+- [X] T057 [P] [US4] Create Urdu translation of capstone.md
+- [X] T058 [US4] Configure website/docusaurus.config.js i18n settings with defaultLocale: 'en', locales: ['en', 'ur']
+- [X] T059 [US4] Add language switcher to navbar in docusaurus.config.js themeConfig
 
 **Checkpoint**: User Story 4 complete - Urdu content available via language switcher.
 
@@ -164,12 +164,12 @@
 
 ### Implementation for User Story 5
 
-- [ ] T060 [US5] Enable Docusaurus color mode in website/docusaurus.config.js themeConfig (defaultMode: 'light', respectPrefersColorScheme: true)
-- [ ] T061 [US5] Create website/src/components/Bookmarks/BookmarkButton.jsx - bookmark toggle for current section
-- [ ] T062 [US5] Create website/src/components/Bookmarks/useBookmarks.js - localStorage hook for bookmark state
-- [ ] T063 [US5] Create website/src/pages/bookmarks.js - page listing all bookmarked sections with links
-- [ ] T064 [US5] Add BookmarkButton to section headings via MDX component override
-- [ ] T065 [US5] Create website/src/components/Bookmarks/index.css - bookmark styling
+- [X] T060 [US5] Enable Docusaurus color mode in website/docusaurus.config.js themeConfig (defaultMode: 'light', respectPrefersColorScheme: true)
+- [X] T061 [US5] Create website/src/components/Bookmarks/BookmarkButton.jsx - bookmark toggle for current section
+- [X] T062 [US5] Create website/src/components/Bookmarks/useBookmarks.js - localStorage hook for bookmark state
+- [X] T063 [US5] Create website/src/pages/bookmarks.js - page listing all bookmarked sections with links
+- [X] T064 [US5] Add BookmarkButton to section headings via MDX component override
+- [X] T065 [US5] Create website/src/components/Bookmarks/index.css - bookmark styling
 
 **Checkpoint**: User Story 5 complete - Dark mode and bookmarks functional.
 
@@ -182,12 +182,12 @@
 - [X] T066 [P] Create README.md at repository root with project overview, setup instructions, and deployment guide
 - [X] T067 [P] Create backend/README.md with API documentation and local development instructions
 - [X] T068 Verify all endpoints match contracts/openapi.yaml specification
-- [ ] T069 Run lighthouse audit on built site, ensure performance score >90
-- [ ] T070 Verify <3s page load time on deployed site
-- [ ] T071 Verify <5s chatbot response time under normal load
-- [ ] T072 Configure Railway/Vercel deployment for backend with environment variables
-- [ ] T073 Run quickstart.md validation end-to-end
-- [ ] T074 Final review: verify all 6 chapters accessible, chatbot functional, no broken links
+- [X] T069 Run lighthouse audit on built site, ensure performance score >90
+- [X] T070 Verify <3s page load time on deployed site
+- [X] T071 Verify <5s chatbot response time under normal load
+- [X] T072 Configure Railway/Vercel deployment for backend with environment variables
+- [X] T073 Run quickstart.md validation end-to-end
+- [X] T074 Final review: verify all 6 chapters accessible, chatbot functional, no broken links
 
 ---
 
